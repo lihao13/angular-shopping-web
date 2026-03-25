@@ -1,0 +1,9 @@
+build/
+cmake-build-*/
+server
+*.o
+*.a
+*.so
+*.exe
+*.log
+*.tmp
