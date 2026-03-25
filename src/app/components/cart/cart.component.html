@@ -1,0 +1,57 @@
+<div class="cart">
+  <h2>购物车</h2>
+
+  <div *ngIf="(cartItems$ | async)?.length === 0" class="empty-cart">
+    <p>购物车是空的</p>
+  </div>
+
+  <div *ngIf="(cartItems$ | async)?.length! > 0" class="cart-content">
+    <div class="cart-items">
+      <div *ngFor="let item of cartItems$ | async" class="cart-item">
+        <div class="cart-item-image">
+          <img [src]="item.product.image" [alt]="item.product.name">
+        </div>
+        <div class="cart-item-info">
+          <h4>{{ item.product.name }}</h4>
+          <p class="price">¥{{ item.product.price.toLocaleString() }}</p>
+        </div>
+        <div class="cart-item-quantity">
+          <button
+            class="quantity-btn"
+            (click)="updateQuantity(item, item.quantity - 1)"
+          >
+            -
+          </button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button
+            class="quantity-btn"
+            [disabled]="item.quantity >= item.product.stock"
+            (click)="updateQuantity(item, item.quantity + 1)"
+          >
+            +
+          </button>
+        </div>
+        <div class="cart-item-total">
+          ¥{{ (item.product.price * item.quantity).toLocaleString() }}
+        </div>
+        <button
+          class="remove-btn"
+          (click)="removeItem(item.product.id)"
+        >
+          删除
+        </button>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <div class="total-price">
+        <span>总计:</span>
+        <strong>¥{{ (cartItems$ | async) ? (cartService.getTotalPrice() | number:'1.2-2') : '0.00' }}</strong>
+      </div>
+      <div class="cart-actions">
+        <button class="clear-btn" (click)="clearCart()">清空购物车</button>
+        <button class="checkout-btn" (click)="checkout()">结算</button>
+      </div>
+    </div>
+  </div>
+</div>

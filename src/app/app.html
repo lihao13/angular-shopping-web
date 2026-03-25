@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a routerLink="/products" class="logo">🛒 购物商城</a>
+      <nav class="nav">
+        <a routerLink="/products" class="nav-link" routerLinkActive="active">商品</a>
+        <a routerLink="/cart" class="nav-link cart-link" routerLinkActive="active">
+          🛒 购物车
+          <span *ngIf="getItemCount() > 0" class="cart-badge">{{ getItemCount() }}</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="main container">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 购物商城 - Angular 21 独立项目演示</p>
+  </div>
+</footer>

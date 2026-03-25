@@ -1,0 +1,20 @@
+<div class="product-card">
+  <div class="product-image">
+    <img [src]="product.image" [alt]="product.name">
+  </div>
+  <div class="product-info">
+    <h3 class="product-name">{{ product.name }}</h3>
+    <p class="product-category">{{ product.category }}</p>
+    <p class="product-description">{{ product.description }}</p>
+    <div class="product-footer">
+      <span class="product-price">¥{{ product.price.toLocaleString() }}</span>
+      <button
+        class="add-to-cart-btn"
+        [disabled]="product.stock === 0"
+        (click)="addToCart()"
+      >
+        {{ product.stock === 0 ? '无货' : '加入购物车' }}
+      </button>
+    </div>
+  </div>
+</div>
