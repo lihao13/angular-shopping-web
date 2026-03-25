@@ -1,0 +1,63 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-angular:
+    name: Build Angular Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Angular
+      run: npm run build -- --prod
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: angular-dist
+        path: dist/angular-shopping-web/
+
+  build-cpp:
+    name: Build C++ Backend
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install CMake
+      uses: jwlawson/actions-setup-cmake@v2
+      with:
+        cmake-version: '3.28'
+
+    - name: Configure CMake
+      run: |
+        cd cpp-backend
+        mkdir -p build
+        cd build
+        cmake ..
+
+    - name: Build
+      run: |
+        cd cpp-backend/build
+        make -j$(nproc)
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cpp-server
+        path: cpp-backend/build/server
