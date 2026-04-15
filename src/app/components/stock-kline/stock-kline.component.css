@@ -1,0 +1,28 @@
+.kline-page {
+  max-width: 100%;
+}
+
+.kline-head {
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #718096;
+}
+
+.chart-host {
+  width: 100%;
+  height: min(520px, 70vh);
+  min-height: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
